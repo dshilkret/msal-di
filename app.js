@@ -34,7 +34,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
 
     var myMSALObj = new Msal.UserAgentApplication(msalConfig);
 
-    // Register Callbacks for redirect flow
+    // Register Callbacks for redirect app flow 
     // myMSALObj.handleRedirectCallbacks(acquireTokenRedirectCallBack, acquireTokenErrorRedirectCallBack);
     myMSALObj.handleRedirectCallback(authRedirectCallBack);
 
