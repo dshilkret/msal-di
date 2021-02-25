@@ -10,14 +10,16 @@ function create_zip() {
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')',
 
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%27/sites/Demo01/demo02lib/application.pdf%27)/openbinarystream',
-    'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/shared%20documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
+    //'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/shared%20documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%37/sites/Demo01/demo02lib/application.pdf%37)',
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_layouts/15/download.aspx?UniqueId=88f173be%2Dc4a6%2D4b0b%2D839d%2D05a44f8dd899',
     // 'https://dtecho365.sharepoint.com/sites/Demo01/_api/Web/Lists(guid%2709adb51e-b024-4c20-87ca-ebc3f31fa95a%27)/Items(1246)',
     // 'https://dtecho365.sharepoint.com/:w:/r/sites/ServiceNowQA1/_layouts/15/Doc.aspx?sourcedoc=%7Bab3310c5-2bdb-4d68-9cdb-f0f630265add%7D',
     // 'https://dtecho365.sharepoint.com/:b:/r/sites/Demo01/demo02lib/application.pdf?csf=1&web=1&e=wrucuT',
     // 'https://dtecho365.sharepoint.com/:b:/r/sites/Demo01/demo02lib/application.pdf?csf=1&download=1&e=wrucuT',
-    
+    'https://www.irs.gov/pub/irs-pdf/fw4.pdf',
+    'https://www.irs.gov/pub/irs-pdf/fw4.pdf',
+    'https://www.irs.gov/pub/irs-pdf/fw4.pdf',
   
     
 
