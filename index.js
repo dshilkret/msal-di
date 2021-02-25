@@ -5,8 +5,10 @@ function create_zip() {
     "https://s3.amazonaws.com/limbforge/EbeArm/Ebe_forearm_L/forearm_L_C4-200_L1-220.stl",  //works
     'https://s3-us-west-2.amazonaws.com/test-dcc67e4a-9949-42c3-9609-666e4dd87e48/disco.stl', //works
     'https://www.irs.gov/pub/irs-pdf/fw4.pdf', //works
+    'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')/openbinarystream',
+
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%27/sites/Demo01/demo02lib/application.pdf%27)/openbinarystream',
-    'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
+    //'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%37/sites/Demo01/demo02lib/application.pdf%37)',
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_layouts/15/download.aspx?UniqueId=88f173be%2Dc4a6%2D4b0b%2D839d%2D05a44f8dd899',
     // 'https://dtecho365.sharepoint.com/sites/Demo01/_api/Web/Lists(guid%2709adb51e-b024-4c20-87ca-ebc3f31fa95a%27)/Items(1246)',
