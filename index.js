@@ -9,8 +9,8 @@ function create_zip() {
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')/openbinarystream',
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')',
 
-    'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%27/sites/Demo01/demo02lib/application.pdf%27)/openbinarystream',
-    'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
+    //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%27/sites/Demo01/demo02lib/application.pdf%27)/openbinarystream',
+    'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/shared documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%37/sites/Demo01/demo02lib/application.pdf%37)',
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_layouts/15/download.aspx?UniqueId=88f173be%2Dc4a6%2D4b0b%2D839d%2D05a44f8dd899',
     // 'https://dtecho365.sharepoint.com/sites/Demo01/_api/Web/Lists(guid%2709adb51e-b024-4c20-87ca-ebc3f31fa95a%27)/Items(1246)',
