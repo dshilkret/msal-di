@@ -19,7 +19,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     // create a request object for login or token request calls
     // In scenarios with incremental consent, the request object can be further customized
     var requestObj = {
-        scopes: ["user.read"]
+        scopes: ["user.read","Files.ReadWrite.All"]
     };
       // create a request object for login or token request calls
     // In scenarios with incremental consent, the request object can be further customized
