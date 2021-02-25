@@ -13,7 +13,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     };
 
     var graphConfig = {
-        graphMeEndpoint: "https://graph.microsoft.com/v1.0/me"
+        graphMeEndpoint: "https://graph.microsoft.com/v2.0/me"
     };
 
     // create a request object for login or token request calls
