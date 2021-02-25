@@ -6,7 +6,8 @@ function create_zip() {
     'https://s3-us-west-2.amazonaws.com/test-dcc67e4a-9949-42c3-9609-666e4dd87e48/disco.stl', //works
     'https://www.irs.gov/pub/irs-pdf/fw4.pdf', //works
     //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')/openbinarystream',
-    'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')/openbinarystream',
+    //'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')/openbinarystream',
+    'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_api/web/getFileByServerRelativeUrl(\'sites/ServiceNowDev1/Shared%20Documents/canvas.pdf\')',
 
     //'https://dtecho365.sharepoint.com/sites/Demo01/_api/web/getFileByServerRelativeUrl(%27/sites/Demo01/demo02lib/application.pdf%27)/openbinarystream',
     //'https://dtecho365.sharepoint.com/_api/web/getFileByServerRelativeUrl(\'/documents/change_address_contact_details_email_id.pdf\')/openbinarystream',
