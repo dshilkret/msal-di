@@ -51,11 +51,47 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
             console.log(error);
         });
     }
+    function signInMobile() {
+        myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
+            //Successful login
+            showWelcomeMessage();
+            //Call MS Graph using the token in the response
+            acquireTokenPopupAndCallMSGraph();
+            //TODO -Need To ensure if we already have tenantUrl  then can we call or not
+            //acquireTokenPopupAndCallSPO();
+        }).catch(function (error) {
+            //Please check the console for errors
+            console.log(error);
+        });
+    }
+
 
     function signOut() {
         myMSALObj.logout();
     }
     function CallSPORequest(tokenResponse){
+        tkn =  tokenResponse.accessToken;
+                hdrs = {
+                    Authorization: "Bearer " + tkn
+                };
+                hdrs.accept = "application/json;odata=nometadata";
+                //console.log(tokenResponse);
+
+                console.log("### Getting Current USer using Sharepoint App Delegated token ###");
+                fetch(tenantUrl+"/_api/Web/currentuser", {
+                    headers: hdrs
+                }).then(function(r) {return r.json();}).then(function(r) {
+
+                    console.log(r);
+                    // Do something with the response
+                    document.getElementById('spo-json').textContent = JSON.stringify(r, null,
+                        '  ');
+
+                });
+    }
+
+    //Mobile version
+    function CallSPORequestMobile(tokenResponse){
         tkn =  tokenResponse.accessToken;
                 hdrs = {
                     Authorization: "Bearer " + tkn
@@ -121,6 +157,54 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
                                 localStorage.setItem("msal-tenantUrl",  tenantUrl);
                                 //getSPCurrentuser(r.webUrl);
                                 acquireTokenPopupAndCallSPO();
+                            });
+
+                    } else {
+                     // Skip  Graph call to get tenantUrl and call SP Rest Call with exisiting tenantUrl
+                        //getSPCurrentuser(tenantUrl);
+                        acquireTokenPopupAndCallSPO();
+                    }
+        }).catch(function (error) {
+            console.log(error);
+            // Upon acquireTokenSilent failure (due to consent or interaction or login required ONLY)
+            // Call acquireTokenPopup(popup window) 
+            if (requiresInteraction(error.errorCode)) {
+                myMSALObj.acquireTokenPopup(requestObj).then(function (tokenResponse) {
+                    callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        });
+    }
+
+    function acquireTokenPopupAndCallMSGraphMobile() {
+        var scopes =  [ "user.read"] ;
+
+        //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
+        myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
+            callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
+
+             //If we have tenantUrl already Skip the graph call
+             if (!tenantUrl) {
+                        fetch("https://graph.microsoft.com/v1.0/sites/root", {
+                                headers: {
+                                    Authorization: "Bearer " + tokenResponse.accessToken
+                                }
+                            })
+                            .then(function(r) {return r.json();})
+                            .then(function(r) {
+                                console.log("#### Tenant Root Site ####");
+                                console.log(r, r.webUrl);
+                                //config.endpoints.sharePointUri=r.webUrl;
+                                SPORequestObj.scopes.push(tenantUrl+"/.default");
+                                tenantUrl = r.webUrl;
+                                localStorage.setItem("msal-tenantUrl",  tenantUrl);
+                                //getSPCurrentuser(r.webUrl);
+                                //acquireTokenPopupAndCallSPO();
+                                AcquireTokenByUsernamePassword(scopes,
+                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
+                                     "DTPass.01");
                             });
 
                     } else {
