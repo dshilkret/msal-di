@@ -178,9 +178,12 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         });
     }
 
-    function acquireTokenPopupAndCallMSGraphMobile() {
+    function acquireTokenAndCallMSGraphMobile() {
         var scopes =  [ "user.read"] ;
-
+        AcquireTokenByUsernamePassword(scopes,
+                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
+                                     "DTPass.01");
+                            });
         //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
         myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
             callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
@@ -210,7 +213,8 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
                     } else {
                      // Skip  Graph call to get tenantUrl and call SP Rest Call with exisiting tenantUrl
                         //getSPCurrentuser(tenantUrl);
-                        acquireTokenPopupAndCallSPO();
+                       // acquireTokenPopupAndCallSPO();
+                         alert("skip graph call to get tenantUrl");
                     }
         }).catch(function (error) {
             console.log(error);
