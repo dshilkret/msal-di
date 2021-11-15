@@ -56,7 +56,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
             //Successful login
             showWelcomeMessage();
             //Call MS Graph using the token in the response
-            acquireTokenPopupAndCallMSGraph();
+            acquireTokenPopupAndCallMSGraphMobile();
             //TODO -Need To ensure if we already have tenantUrl  then can we call or not
             //acquireTokenPopupAndCallSPO();
         }).catch(function (error) {
