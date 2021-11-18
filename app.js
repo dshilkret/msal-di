@@ -68,7 +68,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
             //Please check the console for errors
             console.log(error);
              alert(error);
-        };
+        }
                  //);
     }
 
