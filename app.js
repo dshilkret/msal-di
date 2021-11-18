@@ -53,15 +53,15 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     }
     function signInMobile() {
          debugger;
+         var scopes =  [ "user.read"] ;
         myMSALObj.AcquireTokenByUsernamePassword(scopes,
                                     "ServiceNowAdmin@dtecho365.onmicrosoft.com",
-                                     "DTPass.01");
-                            });.then(function (loginResponse) {
+                                     "DTPass.01").then(function (loginResponse) {
             //Successful login
             //showWelcomeMessage();
             //Call MS Graph using the token in the response
             //acquireTokenPopupAndCallMSGraphMobile();
-              var scopes =  [ "user.read"] ;
+              
         
             //TODO -Need To ensure if we already have tenantUrl  then can we call or not
             //acquireTokenPopupAndCallSPO();
