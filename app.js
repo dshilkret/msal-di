@@ -53,24 +53,23 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     }
     function signInMobile() {
          debugger;
-        //myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
+        myMSALObj.AcquireTokenByUsernamePassword(scopes,
+                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
+                                     "DTPass.01");
+                            });.then(function (loginResponse) {
             //Successful login
             //showWelcomeMessage();
             //Call MS Graph using the token in the response
             //acquireTokenPopupAndCallMSGraphMobile();
               var scopes =  [ "user.read"] ;
-        AcquireTokenByUsernamePassword(scopes,
-                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
-                                     "DTPass.01");
-                            });
+        
             //TODO -Need To ensure if we already have tenantUrl  then can we call or not
             //acquireTokenPopupAndCallSPO();
         }).catch(function (error) {
             //Please check the console for errors
             console.log(error);
              alert(error);
-        }
-                 //);
+        });
     }
 
 
