@@ -52,6 +52,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         });
     }
     function signInMobile() {
+         debugger;
         //myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
             //Successful login
             //showWelcomeMessage();
