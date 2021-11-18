@@ -52,9 +52,9 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         });
     }
     function signInMobile() {
-        myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
+        //myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
             //Successful login
-            showWelcomeMessage();
+            //showWelcomeMessage();
             //Call MS Graph using the token in the response
             //acquireTokenPopupAndCallMSGraphMobile();
               var scopes =  [ "user.read"] ;
@@ -67,6 +67,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         }).catch(function (error) {
             //Please check the console for errors
             console.log(error);
+             alert(error);
         });
     }
 
