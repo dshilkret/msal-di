@@ -1,3 +1,5 @@
+Skip to content
+
 //Multi Tenant Multi Resource Authentication with MSAL JS
 
 tenantUrl = localStorage.getItem("msal-tenantUrl");
@@ -52,23 +54,16 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         });
     }
     function signInMobile() {
-         debugger;
-         var scopes =  [ "user.read"] ;
-        myMSALObj.AcquireTokenByUsernamePassword(scopes,
-                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
-                                     "DTPass.01").then(function (loginResponse) {
+        myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
             //Successful login
-            //showWelcomeMessage();
+            showWelcomeMessage();
             //Call MS Graph using the token in the response
-            //acquireTokenPopupAndCallMSGraphMobile();
-              
-        
+            acquireTokenPopupAndCallMSGraphMobile();
             //TODO -Need To ensure if we already have tenantUrl  then can we call or not
             //acquireTokenPopupAndCallSPO();
         }).catch(function (error) {
             //Please check the console for errors
             console.log(error);
-             alert(error);
         });
     }
 
@@ -185,12 +180,9 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
         });
     }
 
-    function acquireTokenAndCallMSGraphMobile() {
+    function acquireTokenPopupAndCallMSGraphMobile() {
         var scopes =  [ "user.read"] ;
-        AcquireTokenByUsernamePassword(scopes,
-                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
-                                     "DTPass.01");
-                            });
+
         //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
         myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
             callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
@@ -220,8 +212,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
                     } else {
                      // Skip  Graph call to get tenantUrl and call SP Rest Call with exisiting tenantUrl
                         //getSPCurrentuser(tenantUrl);
-                       // acquireTokenPopupAndCallSPO();
-                         alert("skip graph call to get tenantUrl");
+                        acquireTokenPopupAndCallSPO();
                     }
         }).catch(function (error) {
             console.log(error);
@@ -365,3 +356,5 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     } else {
         console.error('Please set a valid login type');
     }
+
+msal-di – Deployment Source
