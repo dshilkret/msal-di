@@ -12,7 +12,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
 
-
+<!--Mobile Debug Logging-->
+<div ng-show = "data._mobileDebug == 'mobileDebug' && (data.isAdmin || data.isDocIntAdmin || data.isDebugUser)">  
+<table><tr>
+<td class="tableButtons"><button  class="icon" ng-click="c.mobileDebug()">Local</button></td>
+<td class="tableButtons"><button  class="icon" ng-click="c.mobileDebugSession()">Session</button></td>
+<td class="tableButtons"><button  class="icon" ng-click="c.mobileDebugCookie()">Cookies</button></td>
+<td class="tableButtons"><button  class="icon" ng-click="c.mobileDebugUA()">UserAgent</button></td>
+<td class="tableButtons"><button  class="icon iconReset" ng-click="c.mobileDebugClear()">Reset</button></td>
+</tr>
+</table>
+<div id="logUA"></div>
+    <table class="tableDebug" id="log">
+    <!--tr class="tableTRDebug" id="logTR"><td class="tableTDDebug"><b>Key</b></td><td class="tableTDDebug"><b>Value</b></td></tr-->
+</table>
+</div>
 //Multi Tenant Multi Resource Authentication with MSAL JS
 
 tenantUrl = localStorage.getItem("msal-tenantUrl");
