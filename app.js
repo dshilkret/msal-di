@@ -1,8 +1,7 @@
-Skip to content
-
 //Multi Tenant Multi Resource Authentication with MSAL JS
 
-tenantUrl = localStorage.getItem("msal-tenantUrl");
+//tenantUrl = localStorage.getItem("msal-tenantUrl");
+var tenantUrl = "https://dtecho365.onmicrosoft.com";
      msalConfig = {
         auth: {
             clientId: '9624a483-5297-45f7-91da-a8ec0e75798b', //This is your client ID
@@ -21,7 +20,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     // create a request object for login or token request calls
     // In scenarios with incremental consent, the request object can be further customized
     var requestObj = {
-        scopes: ["user.read","Files.ReadWrite.All","Sites.ReadWrite.All"]
+        scopes: ["user.read","Files.ReadWrite.All","Sites.ReadWrite.All","Chat.ReadWrite","ChannelMessage.ReadWrite"]
     };
       // create a request object for login or token request calls
     // In scenarios with incremental consent, the request object can be further customized
@@ -41,6 +40,7 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     myMSALObj.handleRedirectCallback(authRedirectCallBack);
 
     function signIn() {
+        debugger;
         myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
             //Successful login
             showWelcomeMessage();
@@ -53,20 +53,6 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
             console.log(error);
         });
     }
-    function signInMobile() {
-        myMSALObj.loginPopup(requestObj).then(function (loginResponse) {
-            //Successful login
-            showWelcomeMessage();
-            //Call MS Graph using the token in the response
-            acquireTokenPopupAndCallMSGraphMobile();
-            //TODO -Need To ensure if we already have tenantUrl  then can we call or not
-            //acquireTokenPopupAndCallSPO();
-        }).catch(function (error) {
-            //Please check the console for errors
-            console.log(error);
-        });
-    }
-
 
     function signOut() {
         myMSALObj.logout();
@@ -91,29 +77,9 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
 
                 });
     }
-
-    //Mobile version
-    function CallSPORequestMobile(tokenResponse){
-        tkn =  tokenResponse.accessToken;
-                hdrs = {
-                    Authorization: "Bearer " + tkn
-                };
-                hdrs.accept = "application/json;odata=nometadata";
-                //console.log(tokenResponse);
-
-                console.log("### Getting Current USer using Sharepoint App Delegated token ###");
-                fetch(tenantUrl+"/_api/Web/currentuser", {
-                    headers: hdrs
-                }).then(function(r) {return r.json();}).then(function(r) {
-
-                    console.log(r);
-                    // Do something with the response
-                    document.getElementById('spo-json').textContent = JSON.stringify(r, null,
-                        '  ');
-
-                });
-    }
+    
     function acquireTokenPopupAndCallSPO() {
+        debugger;
         console.log("Calling acquireTokenPopupAndCallSPO ....");
         //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
         myMSALObj.acquireTokenSilent(SPORequestObj).then(function (tokenResponse) {
@@ -129,6 +95,8 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
                 alert("Require interaction");
                 myMSALObj.acquireTokenPopup(SPORequestObj).then(function (tokenResponse) {
                    // callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
+                   localStorage.setItem("accessTokenFromATP", tokenResponse.accessToken);
+
                    CallSPORequest(tokenResponse);
                 }).catch(function (error) {
                     console.log(error);
@@ -138,8 +106,11 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     }
 
     function acquireTokenPopupAndCallMSGraph() {
+        debugger;
         //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
         myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
+            localStorage.setItem("accessTokenFromATPCG", tokenResponse.accessToken);
+
             callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
 
              //If we have tenantUrl already Skip the graph call
@@ -159,54 +130,6 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
                                 localStorage.setItem("msal-tenantUrl",  tenantUrl);
                                 //getSPCurrentuser(r.webUrl);
                                 acquireTokenPopupAndCallSPO();
-                            });
-
-                    } else {
-                     // Skip  Graph call to get tenantUrl and call SP Rest Call with exisiting tenantUrl
-                        //getSPCurrentuser(tenantUrl);
-                        acquireTokenPopupAndCallSPO();
-                    }
-        }).catch(function (error) {
-            console.log(error);
-            // Upon acquireTokenSilent failure (due to consent or interaction or login required ONLY)
-            // Call acquireTokenPopup(popup window) 
-            if (requiresInteraction(error.errorCode)) {
-                myMSALObj.acquireTokenPopup(requestObj).then(function (tokenResponse) {
-                    callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            }
-        });
-    }
-
-    function acquireTokenPopupAndCallMSGraphMobile() {
-        var scopes =  [ "user.read"] ;
-
-        //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
-        myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
-            callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
-
-             //If we have tenantUrl already Skip the graph call
-             if (!tenantUrl) {
-                        fetch("https://graph.microsoft.com/v1.0/sites/root", {
-                                headers: {
-                                    Authorization: "Bearer " + tokenResponse.accessToken
-                                }
-                            })
-                            .then(function(r) {return r.json();})
-                            .then(function(r) {
-                                console.log("#### Tenant Root Site ####");
-                                console.log(r, r.webUrl);
-                                //config.endpoints.sharePointUri=r.webUrl;
-                                SPORequestObj.scopes.push(tenantUrl+"/.default");
-                                tenantUrl = r.webUrl;
-                                localStorage.setItem("msal-tenantUrl",  tenantUrl);
-                                //getSPCurrentuser(r.webUrl);
-                                //acquireTokenPopupAndCallSPO();
-                                AcquireTokenByUsernamePassword(scopes,
-                                    "ServiceNowAdmin@dtecho365.onmicrosoft.com",
-                                     "DTPass.01");
                             });
 
                     } else {
@@ -257,11 +180,13 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
 
    //This function can be removed if you do not need to support IE
    function acquireTokenRedirectAndCallMSGraph() {
+    debugger;
         //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
         myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
             callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
              //If we have tenantUrl already Skip the graph call
              if (!tenantUrl) {
+                localStorage.setItem("accessTokenFromATS", tokenResponse.accessToken);
                         fetch("https://graph.microsoft.com/v1.0/sites/root", {
                                 headers: {
                                     Authorization: "Bearer " + tokenResponse.accessToken
@@ -299,6 +224,8 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
             console.log(error);
         } else {
             if (response.tokenType === "access_token") {
+                localStorage.setItem("accessTokenFromADCB", tokenResponse.accessToken);
+
                 callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, graphAPICallback);
             } else {
                 console.log("token type is:" + response.tokenType);
@@ -356,5 +283,3 @@ tenantUrl = localStorage.getItem("msal-tenantUrl");
     } else {
         console.error('Please set a valid login type');
     }
-
-msal-di – Deployment Source
